@@ -46,9 +46,8 @@ Tip: Map you local drive only when using Remote Desktop Client (not PCoIP) to tr
 * nView needs to be enabled manually. [User Guide](http://www.nvidia.com/content/quadro/pdf/nView-user-guide.pdf)
 * Collection of the user dumps for the NVIDIA Display Driver 369.95 or 369.71  from within the VM on Display Driver Crash if occurs.
  * Details are [here](http://nvidia.custhelp.com/app/answers/detail/a_id/3335/~/tdr-(timeout-detection-and-recovery)-and-collecting-dump-files) 
-* PCoIP Graphics Agent for Windows Log Collection (2.8.0.5614 (2.8 Beta Presently) and 2.7.0.4060) from the Teradici System Tray (right click Teradici Icon on System Tray) and collect Agent Logs (from the pop-up).
- * PCoIP Graphics Agent for Windows 2.8.0.5614 (2.8 Beta Presently) and 2.7.0.4060  uses Multiple PCoIP encoding.
-* The PCOIP Agent Logs  [v1.11 ~Beta]((https://techsupport.teradici.com/link/portal/15134/15164/Download/2852)) from the Office Client machine of the end-user from <code>C:\Users\user_name\AppData\Local\Teradici\PCoIPClient\logs</code>
+* PCoIP Graphics Agent for Windows Log Collection from the Teradici System Tray (right click Teradici Icon on System Tray) and collect Agent Logs (from the support tab).
+* The PCoIP Client Logs  [v1.11 ~Beta]((https://techsupport.teradici.com/link/portal/15134/15164/Download/2852)) from the Office Client machine of the end-user from <code>C:\Users\user_name\AppData\Local\Teradici\PCoIPClient\logs</code>
 
 #### Optional Usage of Operational Management Suite
 **OMS Setup (for mostly Security, compliance and backup in this case) is optional and the OMS Workspace Id and OMS Workspace Key can either be kept blank or populated post the steps below.**
