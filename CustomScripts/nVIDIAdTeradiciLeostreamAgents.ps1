@@ -141,75 +141,44 @@ if ($license) {
 	Write-Host "pre-activate"
 	.\appactutil.exe -served -comm soap -commServer https://teradici.flexnetoperations.com/control/trdi/ActivationService -entitlementID $license
 	Write-Host "activation over"
-	if ((($teradiciAgentVer -match "2.7.0.4060") -or ($teradiciAgentVer -like '*2.8*')) -and ($nvidiaVer -match "369.71"))
+	if ($nvidiaVer -match "369.71")
 	{
-	#if (($teradiciAgentVer -match "2.7.0.4060") -or ($teradiciAgentVer -like '*2.8*'))
-		if ($teradiciAgentVer -match "2.7.0.4060")
-		{
-		  IF(!(Test-Path $registryPath))
-			  {
-			  New-Item -Path $registryPath -Force | Out-Null
-			  New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null
-			  }
-		  ELSE 
-			  {
-			  New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null
-			  }
-		 }
-		 else
-		 { 
-			Write-Host  "Agent 2.8 - No Registry entry required"
-		 }
+		<# NVIDIA driver kicking Only needed for 369.71 driver #>
 
-			<# NVIDIA driver kicking Only needed for 369.71 driver #>
-			#if ($nvidiaVer -match "369.71")
-
-			Write-Host "Driver kick needed for this NVIDIA graphics driver 369.71, kicking now..."
-			Set-Location "C:\Program Files (x86)\Teradici\PCoIP Agent\GRID"
+		Write-Host "Driver kick needed for this NVIDIA graphics driver 369.71, kicking now..."
+		Set-Location "C:\Program Files (x86)\Teradici\PCoIP Agent\GRID"
     
-			Write-Host "Stopping NVIDIA Display Driver"
-			net stop nvsvc
-			Start-Sleep -s 90#>
+		Write-Host "Stopping NVIDIA Display Driver"
+		net stop nvsvc
+		Start-Sleep -s 90#>
     
-			Write-Host "Disabling NVFBC capture"
-			./NvFBCEnable -disable
-			Start-Sleep -s 90
+		Write-Host "Disabling NVFBC capture"
+		./NvFBCEnable -disable
+		Start-Sleep -s 90
     
-			Write-Host "Enabling NVFBC capture"
-			./NvFBCEnable -enable
-			Start-Sleep -s 90
+		Write-Host "Enabling NVFBC capture"
+		./NvFBCEnable -enable
+		Start-Sleep -s 90
     
-			Write-Host "Starting NVIDIA Display Driver"
-			net start nvsvc
-			Start-Sleep -s 90
+		Write-Host "Starting NVIDIA Display Driver"
+		net start nvsvc
+		Start-Sleep -s 90
 	}
-	else
-	{ 
-		Write-Host  "Not 369.71."
+	if ($teradiciAgentVer -like "*2.7*")
+	{
 		
-			<# NVIDIA driver kicking ALSO needed for 369.95 driver #>
-			#if ($nvidiaVer -match "369.95")
+		<# Enable multi-threaded encoding for 2.7 PCoIP Agents #>
 
-			Write-Host "Driver kick ALSO needed for this NVIDIA graphics driver 369.95, kicking now..."
-			Set-Location "C:\Program Files (x86)\Teradici\PCoIP Agent\GRID"
-    
-			<#Write-Host "Stopping NVIDIA Display Driver"
-			net stop nvsvc
-			Start-Sleep -s 90#>
-    
-			Write-Host "Disabling NVFBC capture"
-			./NvFBCEnable -disable
-			Start-Sleep -s 480
-    
-			Write-Host "Enabling NVFBC capture"
-			./NvFBCEnable -enable
-			Start-Sleep -s 90
-    
-			<#Write-Host "Starting NVIDIA Display Driver"
-			net start nvsvc
-			Start-Sleep -s 480#>
+        IF(!(Test-Path $registryPath))
+		{
+			New-Item -Path $registryPath -Force | Out-Null
+			New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null
+		}
+		ELSE 
+		{
+			New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType DWORD -Force | Out-Null
+		}
 	}
-
 }
 
 
